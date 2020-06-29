@@ -1,0 +1,16 @@
+<%- include("../partials/header") %>
+<div class="ui main text container segment">
+	<div class="ui huge header">
+		Add new comment to <%= blog.title %>
+	</div>
+	<form class="ui form" action="/blogs/<%= blog._id %>/comment" method="POST">
+		
+		<div class="field">
+			<label>Add new comment </label>
+			<textarea name="comment[comment]"></textarea>
+		</div>
+		<input class="ui violet basic button" type="submit" >
+		
+	</form>
+</div>
+	<%- include("../partials/footer") %>

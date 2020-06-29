@@ -1,0 +1,61 @@
+<%- include("../partials/header") %>
+<div class="ui main text container segment">
+	<div class="ui huge header">
+		<%= blog.title%>
+	</div>
+	<div class="ui top attached">
+		<div class="item">
+			<img class="ui rounded image" src="<%=blog.image  %>" height="150" weidth="150" >
+		</div>
+		<div class="content">
+			<span><%= blog.created.toDateString() %></span>
+		</div>
+		<div class="content">
+			<span><em>Author: <%= blog.author.username %></em></span>
+		</div>
+		<div class="description">
+			<p>
+				<%= blog.body %>
+			</p>
+		</div>
+		<% if(currentUser && blog.author.id.equals(currentUser._id) ){ %>
+			<a class= "ui orange basic button" href="/blogs/<%=blog._id %>/edit">Edit </a>
+			<form id="delete" action="/blogs/<%=blog._id%>?_method=DELETE" method="POST">
+				<button class="ui red basic button">
+					Delete
+				</button>
+			</form>
+		<% } %>
+		<a class= "ui orange basic button" href="/blogs/<%=blog._id %>/comment/new">Add Comment </a>
+	</div>
+	<div class="ui threaded comments">
+		<h3 class="ui dividing header">Comments</h3>
+	<% blog.comments.forEach(function(comments){ %>	
+		<div class="comment">
+			<a class="avatar">
+     		 <img src="https://yt3.ggpht.com/a/AATXAJw1Py0_QsIv6PR3NTUgGy5XZv2f5VZaV0pRSQ=s900-c-k-c0xffffffff-no-rj-mo">
+    		</a>
+			<div class="content">
+      			<a class="author"><%= comments.author.username %></a>
+				<div class="metadata">
+					<span class="date"><%= comments.created.toDateString() %></span>
+      			</div>
+				<div class="text">
+        			<%= comments.comment %>
+      			</div>
+			<% if(currentUser && comments.author.id.equals(currentUser._id) ){ %>	
+				<a class= "ui orange basic button" href="/blogs/<%=blog._id %>/comment/<%=comments._id %>/edit">Edit </a>
+				<form id="delete" action="/blogs/<%=blog._id%>/comment/<%=comments._id %>?_method=DELETE" method="POST">
+				<button class="ui red basic button">
+					Delete
+				</button>
+			</form>
+			<% } %>
+			</div>
+		</div>
+		<% }); %>
+	</div>
+		
+</div>
+		
+<%- include("../partials/footer") %>
