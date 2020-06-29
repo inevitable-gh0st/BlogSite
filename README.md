@@ -1,3 +1,3 @@
 # BlogSite
-Blog website for Legex
+Blog website 
 Run Block.js to open server
